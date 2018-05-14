@@ -9,7 +9,7 @@ apiRoutes.use(express.urlencoded({ extended: false }));
 apiRoutes.use(express.json());
 
 apiRoutes.get('/users', users.find);
-// apiRoutes.post('/users', users.create);
+apiRoutes.post('/users', users.create);
 
 apiRoutes.get('/products/:name', products.find);
 
