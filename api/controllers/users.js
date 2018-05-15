@@ -1,17 +1,31 @@
 import db from '../../database';
 
 const users = {
-    find: function (req, res) {
-        db.all('SELECT * from users WHERE mail=?', req.query.mail, (err, data) => {
+
+    // GET
+    find: (req, res) => {
+        db.all('SELECT * from users', (err, data) => {
+            console.log('User: => ', data)
             if (err) res.send(`Operation failed :: ${err}`)
-            res.send(`Operation completed :: ${data[0]}`)
+            res.send(data)
         })
     },
 
+    // POST
     create: (req, res) => {
-        db.run('INSERT into users values (?)', req.body.mail, (err) => {
-            if (err) res.send(`Operation failed :: ${err}`)
-            res.send('Operation completed !')
+        const { username, mail, age } = req.body;
+
+        db.run('INSERT INTO users VALUES (?, ?, ?)', username, mail, age, (err) => {
+            if (err) res.send(`Oups, erreur ${err}`)
+            res.send('Utilisateur crée !')
+        })
+    },
+
+    // DELETE
+    delete: (req, res) => {
+        db.run('DELETE FROM users WHERE username=?', req.query.username, (err) => {
+            if (err) res.send(`Operation failed :: ${err}`);
+            res.send('Utilisateur supprimé')
         })
     }
 };
