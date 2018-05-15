@@ -27,6 +27,16 @@ const users = {
             if (err) res.send(`Operation failed :: ${err}`);
             res.send('Utilisateur supprimé')
         })
+    },
+
+    update: (req, res) => {
+        const { username, mail, age } = req.body;
+
+        db.run('UPDATE users SET username = ?, mail = ?, age = ? WHERE username=?', username, mail, age, req.query.username, (err, data) => {
+            console.log('UPDATE CALLED', data);
+            if (err) res.send(`Erreur ! ${err}`)
+            res.send('Utilisateur modifié !')
+        })
     }
 };
 

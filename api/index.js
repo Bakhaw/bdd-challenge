@@ -10,6 +10,7 @@ apiRoutes.use(express.json());
 
 apiRoutes.get('/users', users.find);
 apiRoutes.post('/users/create', users.create);
+apiRoutes.post('/users/update', users.update);
 apiRoutes.get('/users/delete', users.delete);
 
 apiRoutes.get('/products/:name', products.find);
